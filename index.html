@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Motka — Страницы сайта</title>
+  <link rel="stylesheet" href="assets/css/base.css">
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--color-bg-alt);
+    }
+
+    .index-header {
+      background: var(--color-bg);
+      border-bottom: 1px solid var(--color-border);
+      padding: var(--space-5) 0;
+    }
+
+    .index-header__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+    }
+
+    .index-header__title {
+      font-size: var(--text-lg);
+      font-weight: var(--weight-semibold);
+    }
+
+    .index-header__badge {
+      font-size: var(--text-xs);
+      font-weight: var(--weight-medium);
+      background: var(--color-accent);
+      color: white;
+      padding: 2px 10px;
+      border-radius: var(--radius-full);
+    }
+
+    .index-main {
+      flex: 1;
+      padding: var(--space-12) 0;
+    }
+
+    .index-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--space-4);
+    }
+
+    .page-card {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .page-card:hover {
+      border-color: var(--color-accent);
+      box-shadow: var(--shadow-md);
+    }
+
+    .page-card__label {
+      font-size: var(--text-xs);
+      font-weight: var(--weight-semibold);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-2);
+    }
+
+    .page-card__name {
+      font-size: var(--text-lg);
+      font-weight: var(--weight-semibold);
+      margin-bottom: var(--space-1);
+    }
+
+    .page-card__date {
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-4);
+    }
+
+    .page-card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: var(--text-sm);
+      font-weight: var(--weight-medium);
+      color: var(--color-accent);
+    }
+
+    .page-card__link svg {
+      display: inline;
+      transition: transform var(--transition-fast);
+    }
+
+    .page-card:hover .page-card__link svg {
+      transform: translateX(3px);
+    }
+
+    .index-empty {
+      text-align: center;
+      padding: var(--space-24) 0;
+      color: var(--color-text-muted);
+    }
+
+    .index-footer {
+      padding: var(--space-6) 0;
+      border-top: 1px solid var(--color-border);
+      background: var(--color-bg);
+    }
+
+    .index-footer__text {
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="index-header">
+    <div class="container index-header__inner">
+      <span class="index-header__title">Motka.ru — Сгенерированные страницы</span>
+      <span class="index-header__badge">Внутренний индекс</span>
+    </div>
+  </header>
+
+  <main class="index-main">
+    <div class="container">
+      <div class="index-grid" id="pages-grid">
+        <!-- AUTO-GENERATED: do not edit below this line -->
+        <!-- PAGES_START -->
+        <div class="page-card">
+          <p class="page-card__label">Услуги</p>
+          <h2 class="page-card__name">Страница Услуг</h2>
+          <p class="page-card__date">Создана: 2025-03-05</p>
+          <a href="pages/uslugi.html" class="page-card__link">
+            Открыть
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4"/>
+            </svg>
+          </a>
+        </div>
+        <!-- PAGES_END -->
+      </div>
+    </div>
+  </main>
+
+  <footer class="index-footer">
+    <div class="container">
+      <p class="index-footer__text">
+        Обновлено автоматически через GitHub Actions · <span id="idx-year"></span> Motka
+      </p>
+    </div>
+  </footer>
+
+  <script>document.getElementById('idx-year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

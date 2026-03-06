@@ -1,0 +1,91 @@
+name: Update pages index
+
+on:
+  push:
+    paths:
+      - 'pages/**'
+
+permissions:
+  contents: write
+
+jobs:
+  update-index:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate index.html pages list
+        run: |
+          python3 << 'PYEOF'
+          import os
+          import re
+          from datetime import datetime, timezone
+
+          pages_dir = 'pages'
+          index_file = 'index.html'
+
+          # Read current index
+          with open(index_file, 'r', encoding='utf-8') as f:
+              content = f.read()
+
+          # Collect pages
+          cards = []
+          for fname in sorted(os.listdir(pages_dir)):
+              if not fname.endswith('.html'):
+                  continue
+              path = os.path.join(pages_dir, fname)
+
+              # Try to extract <title> from the page
+              with open(path, 'r', encoding='utf-8') as pf:
+                  page_src = pf.read()
+              title_match = re.search(r'<title[^>]*>(.*?)</title>', page_src, re.IGNORECASE | re.DOTALL)
+              title = title_match.group(1).strip() if title_match else fname.replace('.html', '').replace('-', ' ').title()
+
+              # Read file mtime as date
+              mtime = os.path.getmtime(path)
+              date = datetime.fromtimestamp(mtime, tz=timezone.utc).strftime('%Y-%m-%d')
+
+              cards.append({
+                  'file': fname,
+                  'title': title,
+                  'date': date,
+              })
+
+          # Build cards HTML
+          cards_html = '\n'
+          for c in cards:
+              cards_html += f'''        <div class="page-card">
+                <p class="page-card__label">Страница</p>
+                <h2 class="page-card__name">{c["title"]}</h2>
+                <p class="page-card__date">Создана: {c["date"]}</p>
+                <a href="pages/{c["file"]}" class="page-card__link">
+                  Открыть
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M3 8h10M9 4l4 4-4 4"/>
+                  </svg>
+                </a>
+              </div>\n'''
+
+          # Replace between markers
+          updated = re.sub(
+              r'<!-- PAGES_START -->.*?<!-- PAGES_END -->',
+              f'<!-- PAGES_START -->\n{cards_html}        <!-- PAGES_END -->',
+              content,
+              flags=re.DOTALL
+          )
+
+          with open(index_file, 'w', encoding='utf-8') as f:
+              f.write(updated)
+
+          print(f'Index updated with {len(cards)} page(s).')
+          PYEOF
+
+      - name: Commit updated index
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet || git commit -m "chore: auto-update pages index [skip ci]"
+          git push

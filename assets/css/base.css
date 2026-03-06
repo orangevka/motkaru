@@ -183,7 +183,7 @@ hr {
 .site-header__inner {
   display: flex;
   align-items: center;
-  gap: var(--space-8);
+  gap: 36px;
   height: 64px;
 }
 
@@ -196,7 +196,7 @@ hr {
 }
 
 .site-header__nav {
-  flex: 1;
+  margin-left: auto;
 }
 
 .site-header__nav-list {

@@ -38,7 +38,7 @@
   top: 0;
   z-index: 90;
   background: var(--color-bg);
-  border-bottom: 1px solid var(--color-border);
+  margin-top: 44px;
 }
 
 .uslugi-subnav__inner {
@@ -46,13 +46,17 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-4);
-  padding-top: 16px;
-  padding-bottom: 16px;
+  padding: 16px 0;
+}
+
+.uslugi-subnav__cta {
+  visibility: hidden;
+  flex-shrink: 0;
 }
 
 .uslugi-filters {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: var(--space-2);
 }
 

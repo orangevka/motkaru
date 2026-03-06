@@ -543,6 +543,16 @@
 
   <script src="../assets/js/main.js" defer></script>
   <script>
+    // Subnav CTA: show when header scrolls out of view
+    (function() {
+      var header = document.getElementById('site-header');
+      var subnavCta = document.querySelector('.uslugi-subnav__cta');
+      if (!header || !subnavCta) return;
+      new IntersectionObserver(function(entries) {
+        subnavCta.style.visibility = entries[0].isIntersecting ? 'hidden' : 'visible';
+      }, { threshold: 0 }).observe(header);
+    })();
+
     // Form checks toggle
     document.querySelectorAll('.uslugi-form-check').forEach(function(btn) {
       btn.addEventListener('click', function() {

@@ -53,14 +53,14 @@
 
     <!-- ФИЛЬТРЫ -->
     <div class="container">
-      <div class="uslugi-filters" role="group" aria-label="Фильтр по направлениям">
-        <button class="uslugi-filters__tag is-active">UI-дизайн</button>
-        <button class="uslugi-filters__tag">Брендинг</button>
-        <button class="uslugi-filters__tag">Проектирование</button>
-        <button class="uslugi-filters__tag">EduTech-дизайн</button>
-        <button class="uslugi-filters__tag">Мобильные приложения</button>
-        <button class="uslugi-filters__tag">Дизайн-подписка</button>
-      </div>
+      <nav class="uslugi-filters" aria-label="Навигация по разделам">
+        <a href="#ui" class="uslugi-filters__tag">UI-дизайн</a>
+        <a href="#branding" class="uslugi-filters__tag">Брендинг</a>
+        <a href="#ux" class="uslugi-filters__tag">Проектирование</a>
+        <a href="#edutech" class="uslugi-filters__tag">EduTech-дизайн</a>
+        <a href="#mobile" class="uslugi-filters__tag">Мобильные приложения</a>
+        <a href="#subscription" class="uslugi-filters__tag">Дизайн-подписка</a>
+      </nav>
     </div>
 
     <!-- ЛИД -->
@@ -540,16 +540,6 @@
 
   <script src="../assets/js/main.js" defer></script>
   <script>
-    // Filter tabs
-    document.querySelectorAll('.uslugi-filters__tag').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('.uslugi-filters__tag').forEach(function(b) {
-          b.classList.remove('is-active');
-        });
-        btn.classList.add('is-active');
-      });
-    });
-
     // Form checks toggle
     document.querySelectorAll('.uslugi-form-check').forEach(function(btn) {
       btn.addEventListener('click', function() {

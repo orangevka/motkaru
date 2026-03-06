@@ -69,7 +69,7 @@
   --space-32: 128px;
 
   /* --- Layout --- */
-  --container-max:  1360px;
+  --container-max:  1400px;
   --container-wide: 1440px;
   --gutter:         clamp(20px, 3vw, 40px);
 

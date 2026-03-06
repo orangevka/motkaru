@@ -6,7 +6,7 @@
 .page-cta {
   position: fixed;
   top: 14px;
-  right: 40px;
+  right: max(40px, calc((100vw - 1400px) / 2 + 40px));
   z-index: 95;
   display: inline-block;
   background: var(--color-white);
@@ -27,6 +27,12 @@
 .page-cta:hover {
   background: var(--color-text);
   color: var(--color-white);
+}
+
+.page-cta--ghost {
+  position: static;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 @media (max-width: 768px) {

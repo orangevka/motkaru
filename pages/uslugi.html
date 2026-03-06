@@ -11,6 +11,8 @@
 <body>
 
   <!-- HEADER -->
+  <a href="#form" class="btn btn--outline page-cta">Заказать дизайн</a>
+
   <header class="site-header" id="site-header">
     <div class="container site-header__inner">
       <a href="/" class="site-header__logo" aria-label="Motka — на главную">
@@ -24,7 +26,6 @@
         </ul>
       </nav>
       <div class="site-header__actions">
-        <a href="#form" class="btn btn--outline site-header__cta">Заказать дизайн</a>
         <button class="site-header__burger" aria-expanded="false" aria-controls="mobile-menu" aria-label="Открыть меню">
           <span></span><span></span><span></span>
         </button>
@@ -62,7 +63,6 @@
           <a href="#mobile" class="uslugi-filters__tag">Мобильные приложения</a>
           <a href="#subscription" class="uslugi-filters__tag">Дизайн-подписка</a>
         </nav>
-        <a href="#form" class="btn btn--outline uslugi-subnav__cta">Заказать дизайн</a>
       </div>
     </div>
 
@@ -543,16 +543,6 @@
 
   <script src="../assets/js/main.js" defer></script>
   <script>
-    // Subnav CTA: show when header scrolls out of view
-    (function() {
-      var header = document.getElementById('site-header');
-      var subnavCta = document.querySelector('.uslugi-subnav__cta');
-      if (!header || !subnavCta) return;
-      new IntersectionObserver(function(entries) {
-        subnavCta.style.visibility = entries[0].isIntersecting ? 'hidden' : 'visible';
-      }, { threshold: 0 }).observe(header);
-    })();
-
     // Form checks toggle
     document.querySelectorAll('.uslugi-form-check').forEach(function(btn) {
       btn.addEventListener('click', function() {

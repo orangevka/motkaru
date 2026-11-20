@@ -1,2 +1,6 @@
 .claude/
 .figma-token
+
+# мусор: локальные бэкапы и дампы bash — не в git и не на сайт
+.backups/
+*.stackdump

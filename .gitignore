@@ -2,3 +2,7 @@
 .figma-token
 # секреты бэкенда формы — не в git (живут на сервере вне docroot)
 webflow-export-ru/scripts/config.php
+
+# мусор: локальные бэкапы и дампы bash — не в git и не на сайт
+.backups/
+*.stackdump

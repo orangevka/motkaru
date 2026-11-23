@@ -34,6 +34,61 @@ document.addEventListener('click', e => {
   }
 });
 
+// Мобильное меню: шеврон у «Портфолио» сворачивает/разворачивает список кейсов
+document.querySelectorAll('.mob-cases-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const open = btn.closest('.mtk-nav-link-drop').classList.toggle('is-cases-open');
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Скрыть кейсы' : 'Показать кейсы');
+  });
+});
+
+// Якорные ссылки (/portfolio#all-cases и т.п.): пока выше блока догружаются картинки и видео,
+// страница растёт и блок уезжает вниз — ни прыжок браузера при загрузке, ни плавная прокрутка
+// Webflow при клике (считает точку один раз) до него не доезжают, а после загрузки браузер ещё раз
+// прыгает к якорю сам. Дожидаемся конца каждой прокрутки и доводим до блока в течение 15 с.
+// Пользователь сам крутит или кликает — сразу отпускаем.
+// /portfolio#all-cases: встроенный скрипт страницы убирает якорь из адреса (чтобы не было белого экрана
+// от раннего прыжка) и оставляет цель в window.mtkScrollTarget — её доводим после load.
+let hashSettleStop = null;
+function settleOnHash(targetId) {
+  if (hashSettleStop) hashSettleStop();
+  let el = null;
+  try { el = document.getElementById(typeof targetId === 'string' ? targetId : decodeURIComponent(location.hash.slice(1))); } catch (e) {}
+  if (!el) return;
+  const userEvents = ['wheel', 'touchstart', 'keydown', 'mousedown'];
+  let lastY = -1, still = 0, ticks = 0;
+  const timer = setInterval(() => {
+    if (++ticks > 150) return stop();                                // следим 15 с
+    if (scrollY !== lastY) { lastY = scrollY; still = 0; return; }   // идёт прокрутка — ждём
+    if (++still < 2) return;
+    const header = document.querySelector('.mtk-header-category');
+    const offset = header && getComputedStyle(header).position === 'fixed' ? header.offsetHeight : 0;
+    const delta = el.getBoundingClientRect().top - offset;
+    const atBottom = delta > 0 && scrollY + innerHeight >= document.documentElement.scrollHeight - 1;
+    if (Math.abs(delta) <= 1 || atBottom) return;                    // на месте
+    still = 0;
+    scrollTo({ top: scrollY + delta, behavior: 'smooth' });
+  }, 100);
+  function stop() {
+    clearInterval(timer);
+    userEvents.forEach(t => removeEventListener(t, stop));
+    hashSettleStop = null;
+  }
+  userEvents.forEach(t => addEventListener(t, stop, { passive: true }));
+  hashSettleStop = stop;
+}
+if (window.mtkScrollTarget) {
+  if (document.readyState === 'complete') settleOnHash(window.mtkScrollTarget);
+  else addEventListener('load', () => settleOnHash(window.mtkScrollTarget), { once: true });
+} else if (location.hash.length > 1) settleOnHash();
+addEventListener('hashchange', () => settleOnHash());
+// Webflow меняет адрес через pushState (hashchange не срабатывает) — ловим клик по якорю на этой же странице
+document.addEventListener('click', e => {
+  const a = e.target.closest && e.target.closest('a[href*="#"]');
+  if (a && a.hash.length > 1 && a.pathname === location.pathname && a.host === location.host) setTimeout(() => settleOnHash(), 50);
+});
+
 // Fixed CTA: оригинал всегда скрыт, fixed-clone всегда виден — без show/hide, без мерцания
 (function () {
   const navBar = document.querySelector('.mtk-header-category');
@@ -219,12 +274,3 @@ async function postFormData(form) {
   }
   return response.json();
 }
-
-// Мобильное меню: шеврон у «Портфолио» сворачивает/разворачивает список кейсов
-document.querySelectorAll('.mob-cases-toggle').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const open = btn.closest('.mtk-nav-link-drop').classList.toggle('is-cases-open');
-    btn.setAttribute('aria-expanded', String(open));
-    btn.setAttribute('aria-label', open ? 'Скрыть кейсы' : 'Показать кейсы');
-  });
-});

@@ -1,7 +1,7 @@
 /* Шрифты сайта с нашего сервера в woff2.
-   Повторяют @font-face из motka-ru.webflow.shared.*.css (те же семейства и начертания)
-   и подключаются после него: при совпадении семейства, веса и стиля браузер берёт
-   последнее объявление, поэтому файлы с cdn.prod.website-files.com больше не грузятся.
+   Повторяют @font-face, которые раньше были в CSS Webflow (те же семейства и начертания).
+   В motka-ru.webflow.shared.d1c8c5ea8.f1.min.css эти @font-face удалены, поэтому
+   файлы с cdn.prod.website-files.com больше не грузятся (даже ради эмодзи).
    woff2 сконвертированы из исходных ttf/woff/otf без обрезки набора символов. */
 
 @font-face{font-family:"Factor A";src:url(fonts/Factor-A-Regular-Web.woff2)format("woff2");font-weight:400;font-style:normal;font-display:swap}

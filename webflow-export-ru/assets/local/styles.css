@@ -1028,6 +1028,10 @@ a.tag.orange-20:hover { filter: none; background-color: rgba(178, 146, 49, 0.46)
   /* spherum: зазор от последней картинки до титров 120px → 60px */
   .case-light .case-section.case-main:has(> .case-wrapper.case-spherum) { margin-bottom: 0; }
 }
+/* algoritmika: пустая распорка после последней картинки — зазор до титров как у spherum (60px / 88px) */
+@media screen and (max-width: 767px) {
+  .case-light .alg-main .mtk-design-by-cont:empty { display: none; }
+}
 /* 480–767px: шапка fixed высотой 83px — кейс начинается ровно под ней */
 @media screen and (min-width: 480px) and (max-width: 767px) {
   .case-light .alg-top { padding-top: 83px; }

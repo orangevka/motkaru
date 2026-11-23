@@ -219,3 +219,12 @@ async function postFormData(form) {
   }
   return response.json();
 }
+
+// Мобильное меню: шеврон у «Портфолио» сворачивает/разворачивает список кейсов
+document.querySelectorAll('.mob-cases-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const open = btn.closest('.mtk-nav-link-drop').classList.toggle('is-cases-open');
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Скрыть кейсы' : 'Показать кейсы');
+  });
+});

@@ -1036,3 +1036,38 @@ a.tag.orange-20:hover { filter: none; background-color: rgba(178, 146, 49, 0.46)
   .case-light .main.topnav.overflow-x.case-mobile.case-alg { padding-top: 0; }
   .case-light .case-section.case-main:has(> .case-wrapper.case-spherum) { padding-top: 83px; }
 }
+
+/* ── Мобильное меню: «Портфолио» — аккордеон с кейсами (как на motka.design).
+   Ссылка ведёт на /portfolio, шеврон справа сворачивает/разворачивает список.
+   Шеврон — отдельная кнопка рядом с .w-dropdown-toggle, чтобы Webflow не перехватывал тап. ── */
+.mob-cases-toggle { display: none; }
+@media screen and (max-width: 767px) {
+  /* Открытое меню длиннее экрана (раскрытые кейсы, iPhone SE, iOS Safari с панелями) —
+     белая подложка растёт вместе с пунктами, а не обрывается на 100vh поверх страницы */
+  .mtk-nav-menu { height: auto; min-height: 100vh; }
+  .mtk-nav-link-drop.dt-mob-view {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-self: stretch;
+  }
+  .mtk-nav-link-drop.dt-mob-view > .dropdown-nav { grid-column: 1 / -1; }
+  .mob-cases-toggle {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    /* сверху — как padding-top у ссылки «Портфолио» (шеврон по центру строки текста);
+       справа — поле 24px, как у логотипа слева (у меню на 480–767 своего правого поля нет) */
+    padding: 4px 24px 0 0;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .mob-cases-chevron { width: 20px; height: 20px; transition: transform .2s ease; }
+  .mtk-nav-link-drop.is-cases-open .mob-cases-chevron { transform: rotate(180deg); }
+  .mtk-nav-menu .mtk-nav-link-drop.dt-mob-view > .dropdown-nav.w-dropdown-list { display: none; }
+  .mtk-nav-menu .mtk-nav-link-drop.dt-mob-view.is-cases-open > .dropdown-nav.w-dropdown-list { display: block; }
+}
+@media screen and (max-width: 479px) {
+  .mob-cases-toggle { padding-top: 8px; padding-right: 0; } /* правое поле 24px уже даёт меню */
+}

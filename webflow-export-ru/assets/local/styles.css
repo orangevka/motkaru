@@ -1042,9 +1042,8 @@ a.tag.orange-20:hover { filter: none; background-color: rgba(178, 146, 49, 0.46)
    Шеврон — отдельная кнопка рядом с .w-dropdown-toggle, чтобы Webflow не перехватывал тап. ── */
 .mob-cases-toggle { display: none; }
 @media screen and (max-width: 767px) {
-  /* Открытое меню длиннее экрана (раскрытые кейсы, iPhone SE, iOS Safari с панелями) —
-     белая подложка растёт вместе с пунктами, а не обрывается на 100vh поверх страницы */
-  .mtk-nav-menu { height: auto; min-height: 100vh; }
+  /* Высота открытого меню — по контенту (вместо 100vh из Webflow) */
+  .mtk-nav-menu { height: auto; }
   .mtk-nav-link-drop.dt-mob-view {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -1055,19 +1054,21 @@ a.tag.orange-20:hover { filter: none; background-color: rgba(178, 146, 49, 0.46)
     display: flex;
     justify-content: flex-end;
     align-items: flex-start;
-    /* сверху — как padding-top у ссылки «Портфолио» (шеврон по центру строки текста);
-       справа — поле 24px, как у логотипа слева (у меню на 480–767 своего правого поля нет) */
-    padding: 4px 24px 0 0;
+    /* справа — поле 24px, как у логотипа слева (у меню на 480–767 своего правого поля нет) */
+    padding: 0 24px 0 0;
     background: none;
     border: 0;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
-  .mob-cases-chevron { width: 20px; height: 20px; transition: transform .2s ease; }
+  /* 36×36 по центру строки «Портфолио»: строка 20px начинается после padding-top ссылки (4px),
+     центр строки = 4 + 10 = 14px от верха ряда → верх шеврона 14 − 18 = −4px */
+  .mob-cases-chevron { width: 36px; height: 36px; margin-top: -4px; transition: transform .2s ease; }
   .mtk-nav-link-drop.is-cases-open .mob-cases-chevron { transform: rotate(180deg); }
   .mtk-nav-menu .mtk-nav-link-drop.dt-mob-view > .dropdown-nav.w-dropdown-list { display: none; }
   .mtk-nav-menu .mtk-nav-link-drop.dt-mob-view.is-cases-open > .dropdown-nav.w-dropdown-list { display: block; }
 }
 @media screen and (max-width: 479px) {
-  .mob-cases-toggle { padding-top: 8px; padding-right: 0; } /* правое поле 24px уже даёт меню */
+  .mob-cases-toggle { padding-right: 0; } /* правое поле 24px уже даёт меню */
+  .mob-cases-chevron { margin-top: 0; } /* padding-top ссылки здесь 8px: 8 + 10 − 18 = 0 */
 }

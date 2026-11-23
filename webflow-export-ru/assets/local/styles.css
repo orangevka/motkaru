@@ -1025,6 +1025,8 @@ a.tag.orange-20:hover { filter: none; background-color: rgba(178, 146, 49, 0.46)
   .case-light .alg-top,
   .case-light .main.topnav.overflow-x.case-mobile.case-alg { padding-top: 0; }
   .case-light .case-section.case-main:has(> .case-wrapper.case-spherum) { padding-top: 0; }
+  /* spherum: зазор от последней картинки до титров 120px → 60px */
+  .case-light .case-section.case-main:has(> .case-wrapper.case-spherum) { margin-bottom: 0; }
 }
 /* 480–767px: шапка fixed высотой 83px — кейс начинается ровно под ней */
 @media screen and (min-width: 480px) and (max-width: 767px) {

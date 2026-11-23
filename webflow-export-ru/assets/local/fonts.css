@@ -1,0 +1,23 @@
+/* Шрифты сайта с нашего сервера в woff2.
+   Повторяют @font-face из motka-ru.webflow.shared.*.css (те же семейства и начертания)
+   и подключаются после него: при совпадении семейства, веса и стиля браузер берёт
+   последнее объявление, поэтому файлы с cdn.prod.website-files.com больше не грузятся.
+   woff2 сконвертированы из исходных ttf/woff/otf без обрезки набора символов. */
+
+@font-face{font-family:"Factor A";src:url(fonts/Factor-A-Regular-Web.woff2)format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Factor A";src:url(fonts/Factor-A-Bold-Web.woff2)format("woff2");font-weight:700;font-style:normal;font-display:swap}
+
+@font-face{font-family:Spectral;src:url(fonts/Spectral-ExtraLight.woff2)format("woff2");font-weight:200;font-style:normal;font-display:swap}
+@font-face{font-family:Spectral;src:url(fonts/Spectral-Regular.woff2)format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:Spectral;src:url(fonts/Spectral-Medium.woff2)format("woff2");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:Spectral;src:url(fonts/Spectral-SemiBold.woff2)format("woff2");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:Spectral;src:url(fonts/Spectral-Bold.woff2)format("woff2");font-weight:700;font-style:normal;font-display:swap}
+
+@font-face{font-family:Outfit;src:url(fonts/Outfit-Regular.woff2)format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Outfit Semibold";src:url(fonts/Outfit-SemiBold.woff2)format("woff2");font-weight:600;font-style:normal;font-display:swap}
+
+@font-face{font-family:Helveticaneue;src:url(fonts/HelveticaNeue.woff2)format("woff2");font-weight:400;font-style:normal;font-display:swap}
+
+@font-face{font-family:EuclidCircularA;src:url(fonts/EuclidCircularA-Regular.woff2)format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:EuclidCircularA;src:url(fonts/EuclidCircularA-Medium.woff2)format("woff2");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:EuclidCircularA;src:url(fonts/EuclidCircularA-Bold.woff2)format("woff2");font-weight:700;font-style:normal;font-display:swap}

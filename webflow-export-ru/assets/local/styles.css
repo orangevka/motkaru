@@ -716,8 +716,9 @@ p.cg-bs-caption { font-family: 'Spectral', serif; font-size: 24px; line-height: 
    chitay-gorod: дополнительные мобильные правки
    ══════════════════════════════════════════ */
 @media (max-width: 479px) {
-  /* Меню не уходит за hero-изображение */
-  .mtk-header-category { position: relative; z-index: 200; }
+  /* Меню не уходит за hero-изображение. z-index как у Webflow на остальных ширинах (7000):
+     при 200 бейдж WDA (.wda-badge-cont, тоже 200, ниже по DOM) вылезал поверх открытого меню */
+  .mtk-header-category { position: relative; z-index: 7000; }
   .cg-hero { position: relative; z-index: 0; }
 
   /* Маскот-берёза под заголовком — вдвое меньше */
@@ -1042,8 +1043,9 @@ a.tag.orange-20:hover { filter: none; background-color: rgba(178, 146, 49, 0.46)
    Шеврон — отдельная кнопка рядом с .w-dropdown-toggle, чтобы Webflow не перехватывал тап. ── */
 .mob-cases-toggle { display: none; }
 @media screen and (max-width: 767px) {
-  /* Высота открытого меню — по контенту (вместо 100vh из Webflow) */
-  .mtk-nav-menu { height: auto; }
+  /* Высота открытого меню — по контенту (вместо 100vh из Webflow).
+     Нижний отступ под «О студии» ×2: 16px её padding-bottom + 16px у меню = 32px */
+  .mtk-nav-menu { height: auto; padding-bottom: 16px; }
   .mtk-nav-link-drop.dt-mob-view {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -1053,22 +1055,26 @@ a.tag.orange-20:hover { filter: none; background-color: rgba(178, 146, 49, 0.46)
   .mob-cases-toggle {
     display: flex;
     justify-content: flex-end;
-    align-items: flex-start;
-    /* справа — поле 24px, как у логотипа слева (у меню на 480–767 своего правого поля нет) */
-    padding: 0 24px 0 0;
+    align-items: center;
+    /* сверху/снизу — как padding у ссылки «Портфолио» (4/16): контент кнопки = строка текста,
+       и шеврон по align-items: center встаёт ровно по центру строки при любом line-height;
+       справа — поле 24px, как у логотипа слева (у меню на 480–767 своего правого поля нет) */
+    padding: 4px 24px 16px 0;
     background: none;
     border: 0;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
-  /* 36×36 по центру строки «Портфолио»: строка 20px начинается после padding-top ссылки (4px),
-     центр строки = 4 + 10 = 14px от верха ряда → верх шеврона 14 − 18 = −4px */
-  .mob-cases-chevron { width: 36px; height: 36px; margin-top: -4px; transition: transform .2s ease; }
+  /* margin −18px сверху/снизу: в потоке шеврон нулевой высоты и не растягивает ряд, а визуально 36×36 по центру строки */
+  .mob-cases-chevron { width: 36px; height: 36px; margin: -18px 0; flex: none; transition: transform .2s ease; }
+  /* Размеры шрифта мобильного меню: основные пункты 22px, кейсы 20px / 400 (и текущий — без жирного) */
+  .mtk-nav-menu .mtk-nav-link.nav-ru { font-size: 22px; }
+  .mtk-nav-menu .mtk-nav-link-drop .dropdown-link.menu { font-size: 20px; font-weight: 400; }
   .mtk-nav-link-drop.is-cases-open .mob-cases-chevron { transform: rotate(180deg); }
   .mtk-nav-menu .mtk-nav-link-drop.dt-mob-view > .dropdown-nav.w-dropdown-list { display: none; }
   .mtk-nav-menu .mtk-nav-link-drop.dt-mob-view.is-cases-open > .dropdown-nav.w-dropdown-list { display: block; }
 }
 @media screen and (max-width: 479px) {
-  .mob-cases-toggle { padding-right: 0; } /* правое поле 24px уже даёт меню */
-  .mob-cases-chevron { margin-top: 0; } /* padding-top ссылки здесь 8px: 8 + 10 − 18 = 0 */
+  .mtk-nav-menu { padding-top: 1.6em; padding-left: 20px; padding-right: 16px; }
+  .mob-cases-toggle { padding-top: 8px; padding-right: 0; } /* padding-top ссылки здесь 8px; правое поле (16px) даёт само меню */
 }
